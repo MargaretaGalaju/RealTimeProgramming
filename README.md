@@ -1,21 +1,8 @@
 # Lab1
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `lab1` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:lab1, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/lab1](https://hexdocs.pm/lab1).
+What is already done:
+1. Read 2 SSE streams 
+2. Route the messages to a group of workers 
+3. Make a sentiment analysis for each tweet
+4. Check for panic messages
 
