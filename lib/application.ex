@@ -2,14 +2,33 @@ defmodule LAB1.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
-    import Supervisor.Spec
-
     children = [
-      supervisor(Supervisor_1, ["http://localhost:4000/tweets/1"])
+      %{
+        id: Worker,
+        start: {Worker, :start_link, [""]}
+      },
+      %{
+        id: WorkerSupervisor,
+        start: {WorkerSupervisor, :start_link, [""]}
+      },
+      %{
+        id: Router,
+        start: {Router, :start_link, [""]}
+      },
+      %{
+        id: Connection2,
+        start: {Connection, :start_link, ["http://localhost:4000/tweets/2"]}
+      },
+      %{
+        id: Connection1,
+        start: {Connection, :start_link, ["http://localhost:4000/tweets/1"]}
+      }
+
     ]
 
-    opts = [strategy: :one_for_one, name: Lab1.Supervisor]
+    opts = [strategy: :one_for_one, name: LAB1.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
