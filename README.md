@@ -6,4 +6,4 @@ What is already done:
 3. Make a sentiment analysis for each tweet
 4. Check for panic messages
 
-![Alt Text](https://github.com/MargaretaGalaju/RealTimeProgramming/images/example.gif)
+![Alt Text](https://github.com/MargaretaGalaju/RealTimeProgramming/blob/master/images/example.gif)
