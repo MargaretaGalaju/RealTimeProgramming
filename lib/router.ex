@@ -14,6 +14,10 @@ defmodule Router do
   def handle_cast({:router, msg}, _states) do
     WorkerSupervisor.start_worker(msg)
     WorkerSupervisor.send_msg(msg)
+
+    WorkerSupervisor2.start_worker(msg)
+    WorkerSupervisor2.send_msg(msg)
+    
     {:noreply, %{}}
  end
 

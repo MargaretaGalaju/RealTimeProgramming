@@ -14,6 +14,15 @@ defmodule LAB1.Application do
         start: {WorkerSupervisor, :start_link, [""]}
       },
       %{
+        id: Worker2,
+        start: {Worker2, :start_link, [""]}
+      },
+      %{
+        id: WorkerSupervisor2,
+        start: {WorkerSupervisor2, :start_link, [""]}
+      },
+      
+      %{
         id: Router,
         start: {Router, :start_link, [""]}
       },
