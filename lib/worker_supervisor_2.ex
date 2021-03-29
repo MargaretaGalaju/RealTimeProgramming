@@ -21,6 +21,6 @@ defmodule WorkerSupervisor2 do
   end
 
   def send_msg(msg) do
-    GenServer.cast(Worker, {:worker, msg})
+    GenServer.cast(Worker2, {:worker, msg})
   end
 end

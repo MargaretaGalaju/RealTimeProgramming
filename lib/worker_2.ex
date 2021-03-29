@@ -1,6 +1,5 @@
 defmodule Worker2 do
   use GenServer, restart: :transient
-
   def start_link(msg) do
     GenServer.start(__MODULE__, msg, name: __MODULE__)
   end
@@ -31,13 +30,18 @@ defmodule Worker2 do
   end
 
   def calculate_engagement_ratio(tweet) do
-    favourites_count = tweet["message"]["tweet"]["user"]["favourites_count"];
-    retweet_count = tweet["message"]["tweet"]["retweet_count"];
-    followers_count = tweet["message"]["tweet"]["user"]["followers_count"];
+    favourites_count = tweet["user"]["favourites_count"];
+    retweet_count = tweet["retweet_count"];
+    followers_count = tweet["user"]["followers_count"];
 
-    engagment_ratio = (favourites_count + retweet_count)/followers_count;
+    if  is_number(followers_count) and followers_count > 0  do
+      engagment_ratio = (favourites_count + retweet_count)/followers_count;
+      # IO.puts(engagment_ratio)
+    Aggregator.add_engagement(engagment_ratio)
+    end
+    # lala = UUID.uuid4()
+    # IO.puts(lala)
 
-    IO.puts("------------------------------------"+engagment_ratio)
   end
 
    def get_child(pid) do

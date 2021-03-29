@@ -37,7 +37,7 @@ defmodule Worker do
     scores_array = Enum.map(user_words_array, fn word -> EmotionValues.get_value(word) end)
     final_score = Enum.sum(scores_array)
 
-    IO.puts(final_score)
+    # IO.puts(final_score)
   end
 
    def get_child(pid) do
