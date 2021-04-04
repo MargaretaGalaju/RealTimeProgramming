@@ -18,7 +18,7 @@ defmodule Worker do
 
   def msg_operations(msg) do
     if msg.data =~ "panic" do
-      IO.inspect(%{"Panic message:" => msg})
+      # IO.inspect(%{"Panic message:" => msg})
       Process.exit(self(), :kill)
     else
       data = json_parse(msg)
@@ -36,8 +36,12 @@ defmodule Worker do
 
     scores_array = Enum.map(user_words_array, fn word -> EmotionValues.get_value(word) end)
     final_score = Enum.sum(scores_array)
+    
+    tweetId = data["id"]
 
-    # IO.puts(final_score)
+    if tweetId do
+      Aggregator.add_sentiment_score(final_score, tweetId)
+    end
   end
 
    def get_child(pid) do

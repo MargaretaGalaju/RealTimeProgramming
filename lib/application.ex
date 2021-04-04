@@ -6,6 +6,14 @@ defmodule LAB1.Application do
   def start(_type, _args) do
     children = [
       %{
+        id: Aggregator,
+        start: {Aggregator, :start_link, [""]}
+      },
+      %{
+        id: AdaptiveBatching,
+        start: {AdaptiveBatching, :start_link, [""]}
+      },
+      %{
         id: Worker,
         start: {Worker, :start_link, [""]}
       },
@@ -20,14 +28,6 @@ defmodule LAB1.Application do
       %{
         id: WorkerSupervisor2,
         start: {WorkerSupervisor2, :start_link, [""]}
-      },
-      %{
-        id: Aggregator,
-        start: {Aggregator, :start_link, [""]}
-      },
-      %{
-        id: AdaptiveBatching,
-        start: {AdaptiveBatching, :start_link, [""]}
       },
       %{
         id: Router,

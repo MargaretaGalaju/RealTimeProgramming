@@ -17,7 +17,7 @@ defmodule Worker2 do
 
   def msg_operations(msg) do
     if msg.data =~ "panic" do
-      IO.inspect(%{"Panic message:" => msg})
+      # IO.inspect(%{"Panic message:" => msg})
       Process.exit(self(), :kill)
     else
       json_parse(msg)
@@ -34,13 +34,12 @@ defmodule Worker2 do
     retweet_count = tweet["retweet_count"];
     followers_count = tweet["user"]["followers_count"];
 
-    if  is_number(followers_count) and followers_count > 0  do
+    tweetId = tweet["id"];
+
+    if is_number(followers_count) and followers_count > 0  and tweetId do
       engagment_ratio = (favourites_count + retweet_count)/followers_count;
-      # IO.puts(engagment_ratio)
-    Aggregator.add_engagement(engagment_ratio)
+      Aggregator.add_engagement_ratio(engagment_ratio, tweetId)
     end
-    # lala = UUID.uuid4()
-    # IO.puts(lala)
 
   end
 
