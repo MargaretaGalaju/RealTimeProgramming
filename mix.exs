@@ -14,7 +14,7 @@ defmodule LAB1.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:mongodb, :logger],
       mod: {LAB1.Application, []}
     ]
   end
@@ -25,6 +25,7 @@ defmodule LAB1.MixProject do
       {:eventsource_ex, "~> 0.0.2"},
       {:jason, "~> 1.1"},
       { :uuid, "~> 1.1" },
+      {:poison, "~> 3.1"},
       {:mongodb, "~> 0.5.1"}
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]

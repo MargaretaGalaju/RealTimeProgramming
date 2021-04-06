@@ -34,6 +34,7 @@ defmodule Aggregator do
         if doesTweetExists do
             singleTweet = Map.get(tweets, id)
             singleTweet = Map.put(singleTweet, dataType, value)
+            singleTweet = Map.put(singleTweet, "id", id)
             tweets =  Map.update!(tweets, id, fn _ -> singleTweet end)
             finalTweet = Map.get(tweets, id)
             AdaptiveBatching.insert(finalTweet)

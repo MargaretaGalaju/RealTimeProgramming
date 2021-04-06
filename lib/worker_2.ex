@@ -46,5 +46,4 @@ defmodule Worker2 do
    def get_child(pid) do
      GenServer.cast(pid, :get)
    end
-
 end
