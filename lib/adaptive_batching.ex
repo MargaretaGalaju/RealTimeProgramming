@@ -20,6 +20,9 @@ defmodule AdaptiveBatching do
 
       if Enum.count(tweets) >= 128 do
         GenServer.cast(__MODULE__, :add_tweets_in_database)
+      else
+        timeNow = :os.system_time(:millisecond);
+        Timer.add(timeNow)
       end
 
       {:noreply, tweets}
@@ -27,9 +30,9 @@ defmodule AdaptiveBatching do
 
   @impl true
   def handle_cast(:add_tweets_in_database, tweets) do
-    IO.inspect(tweets)
-    IO.inspect(Enum.count(tweets))
-    IO.puts("All this data should be uploaded in Mongo")
+    # IO.inspect(tweets)
+    # IO.inspect(Enum.count(tweets))
+    # IO.puts("All this data should be uploaded in Mongo")
     spawn(fn ->
       Enum.each(tweets, fn tweet ->
         add_tweets_in_database(tweet)

@@ -10,6 +10,10 @@ defmodule LAB1.Application do
         start: {Aggregator, :start_link, [""]}
       },
       %{
+        id: Timer,
+        start: {Timer, :start_link, [""]}
+      },
+      %{
         id: AdaptiveBatching,
         start: {AdaptiveBatching, :start_link, [""]}
       },
