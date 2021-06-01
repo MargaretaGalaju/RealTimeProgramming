@@ -28,6 +28,8 @@ defmodule Worker do
   def json_parse(msg) do
       msg_data = Jason.decode!(msg.data)
       calculate_sentiments(msg_data["message"]["tweet"])
+      {:ok, data} = Poison.decode(msg_data)
+      Broker.sendPacket("tweet", data["message"]["tweet"])
   end
 
   def calculate_sentiments(data) do
@@ -36,7 +38,7 @@ defmodule Worker do
 
     scores_array = Enum.map(user_words_array, fn word -> EmotionValues.get_value(word) end)
     final_score = Enum.sum(scores_array)
-    
+
     tweetId = data["id"]
 
     if tweetId do

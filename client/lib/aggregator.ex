@@ -1,10 +1,10 @@
 defmodule Aggregator do
     use GenServer
-    
+
     def start_link(message) do
         GenServer.start(__MODULE__, message, name: __MODULE__)
     end
-    
+
     def init(_state) do
         {:ok, %{tweets: %{}}}
     end
@@ -39,7 +39,7 @@ defmodule Aggregator do
             finalTweet = Map.get(tweets, id)
             AdaptiveBatching.insert(finalTweet)
             tweets = Map.delete(tweets, id)
-        else 
+        else
             tweets = Map.put(tweets, id, %{});
             singleTweet = Map.get(tweets, id)
             singleTweet = Map.put(singleTweet, dataType, value)
