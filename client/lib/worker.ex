@@ -28,8 +28,7 @@ defmodule Worker do
   def json_parse(msg) do
       msg_data = Jason.decode!(msg.data)
       calculate_sentiments(msg_data["message"]["tweet"])
-      {:ok, data} = Poison.decode(msg_data)
-      Broker.sendPacket("tweet", data["message"]["tweet"])
+      Broker.send_packet("tweet", msg_data["message"]["tweet"]["text"])
   end
 
   def calculate_sentiments(data) do

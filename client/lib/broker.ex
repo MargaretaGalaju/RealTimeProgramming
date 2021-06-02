@@ -12,7 +12,7 @@ defmodule Broker do
     GenServer.start_link(__MODULE__, %{socket: socket}, name: __MODULE__)
   end
 
-  def sendPacket(head, body) do
+  def send_packet(head, body) do
     encoded = Poison.encode!(%{head: head, body: body})
     GenServer.cast(__MODULE__, {:send_packet, encoded})
   end
