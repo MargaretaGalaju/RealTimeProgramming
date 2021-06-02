@@ -31,7 +31,8 @@ defmodule AdaptiveBatching do
   @impl true
   def handle_cast(:add_tweets_in_database, tweets) do
     # IO.inspect(tweets)
-    IO.inspect(Enum.count(tweets))
+    # IO.inspect(Enum.count(tweets))
+
     # IO.puts("All this data should be uploaded in Mongo")
     spawn(fn ->
       Enum.each(tweets, fn tweet ->

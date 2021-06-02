@@ -1,4 +1,4 @@
-defmodule Broker do
+defmodule Subscriber do
   use GenServer
 
   def init(arg) do
@@ -8,12 +8,11 @@ defmodule Broker do
   def start_link(host, port) do
     {:ok, socket} = :gen_tcp.connect(host, port, [:binary, active: false])
     IO.puts("Connecting the client to the BROKER")
-
     GenServer.start_link(__MODULE__, %{socket: socket}, name: __MODULE__)
-  end
 
-  def send_packet(topic, body) do
-    encoded = Poison.encode!(%{topic: topic, body: body})
+    IO.puts("Subscribed")
+
+    encoded = Poison.encode!(%{type: "subscribe", topic: "tweets"})
     GenServer.cast(__MODULE__, {:send_packet, encoded})
   end
 

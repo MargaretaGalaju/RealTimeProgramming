@@ -6,6 +6,10 @@ defmodule ApplicationModule do
     children = [
       # {Task, fn -> KVServer.accept(4040) end}
       %{
+        id: Register,
+        start: {Register, :init, []}
+      },
+      %{
         id: KVServer,
         start: {KVServer, :accept, [4040]}
       }

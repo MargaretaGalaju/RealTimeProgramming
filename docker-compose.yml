@@ -13,8 +13,13 @@ services:
       context: client
     depends_on:
       - rtp-tweets-faf18x
+      - rtp-subscriber
   rtp-tweets-faf18x:
     image: alexburlacu/rtp-server:faf18x
     container_name: rtp-tweets-faf18x
     ports:
       - 4000:4000
+  rtp-subscriber:
+    container_name: rtp-subscriber
+    build:
+      context: my_custom_client

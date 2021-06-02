@@ -24,26 +24,29 @@ defmodule KVServer do
   end
 
   def serve(body, socket) do
-    # IO.inspect(state)
-    # IO.inspect(body)
-
-    if (body =~ "subscribeTweets") do
-      IO.inspect(body) 
-      GenServer.cast(__MODULE__, {:subscribe_to_tweets, body})
+    decoded_message = Poison.decode!(body)
+    if decoded_message["type"] != nil and decoded_message["type"] =~ "subscribe" do
+      Register.add(decoded_message["topic"], socket)
+    else
+      clients = Register.get(decoded_message["topic"])
+      for _client <- clients  do
+        send_socket(_client, body)
       end
-    if (body =~ "unsubscribeTweets") do 
-        IO.inspect(body) 
-
-        GenServer.cast(__MODULE__, {:unsubscribe, body})
-      else 
-        GenServer.cast(__MODULE__, {:receive_tweets, body})
     end
 
     serve(socket)
   end
 
+  def send_socket(socket, data) do
+    try do
+      :gen_tcp.send(socket, data)
+    rescue
+      _ -> IO.puts("Something went wrong")
+    end
+  end
+
   def handle_cast({:subscribe_to_tweets, data}, state) do
-    state = true;
+    # state = true;
 
     {:noreply, state}
   end
@@ -70,5 +73,6 @@ defmodule KVServer do
       _ -> :error
     end
     serve(body, socket)
+
   end
 end

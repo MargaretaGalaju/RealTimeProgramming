@@ -28,7 +28,8 @@ defmodule Worker do
   def json_parse(msg) do
       msg_data = Jason.decode!(msg.data)
       calculate_sentiments(msg_data["message"]["tweet"])
-      Broker.send_packet("tweet", msg_data["message"]["tweet"]["text"])
+      Broker.send_packet("tweets", msg_data["message"]["tweet"]["text"])
+      Broker.send_packet("users", msg_data["message"]["tweet"]["user"])
   end
 
   def calculate_sentiments(data) do
